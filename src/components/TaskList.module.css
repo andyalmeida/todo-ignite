@@ -1,0 +1,50 @@
+.listHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0 1.5rem;
+}
+
+.listHeader p {
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.listHeader p:first-child {
+    color: var(--blue-500);
+}
+
+.listHeader p:last-child {
+    color: var(--purple-500);
+}
+
+.listHeader p span {
+    background: var(--gray-400);
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gray-200);
+    margin-left: 0.5rem;
+    line-height: 100%;
+}
+
+.emptyList {
+    border-top: 1px solid var(--gray-400);
+    border-radius: 8px;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.emptyList svg{
+    filter: brightness(0.5);
+    margin-bottom: 1rem;
+}
+
+.emptyList p {
+    color: var(--gray-300);
+}
+
+.taskList {
+    list-style: none;
+}

@@ -21,10 +21,17 @@ export function TaskList({ newTask }: TaskListProps) {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(()=>{
+    const tasks = localStorage.getItem('tasks') || '[]';
+    setTasks(JSON.parse(tasks));
+  },[]);
+
+  useEffect(()=>{
     if(!newTask) return;
 
     const task = { id: uuidv4(), title: newTask, completed: false };
     setTasks([...tasks, task]);
+
+    localStorage.setItem('tasks', JSON.stringify([...tasks, task]));
   },[newTask]);
 
   const taskCount = tasks.length;

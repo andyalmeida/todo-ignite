@@ -29,8 +29,10 @@ export function TaskList({ newTask }: TaskListProps) {
     if(!newTask) return;
 
     const task = { id: uuidv4(), title: newTask, completed: false };
-    setTasks([...tasks, task]);
-    saveTasks([...tasks, task]);
+    const newTasks = [...tasks, task];
+    const orderedTasks = orderListByCompletion(newTasks);
+    setTasks(orderedTasks);
+    saveTasks(orderedTasks);
   },[newTask]);
 
   function toggleTaskCompletion(taskId: string) {
@@ -40,8 +42,9 @@ export function TaskList({ newTask }: TaskListProps) {
       }
       return task;
     });
-    setTasks(changedTasks);
-    saveTasks(changedTasks);
+    const orderedTasks = orderListByCompletion(changedTasks);
+    setTasks(orderedTasks);
+    saveTasks(orderedTasks);
   }
 
   function deleteTask(taskId: string) {
@@ -52,6 +55,14 @@ export function TaskList({ newTask }: TaskListProps) {
 
   function saveTasks(tasks: Task[]) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  function orderListByCompletion(tasks: Task[]) {
+    return tasks.sort((a, b) => {
+      if(a.completed && !b.completed) return 1;
+      if(!a.completed && b.completed) return -1;
+      return 0;
+    });
   }
 
   const taskCount = tasks.length;

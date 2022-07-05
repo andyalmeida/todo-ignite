@@ -2,14 +2,24 @@ import { Trash } from "phosphor-react";
 
 import styles from './Task.module.css';
 
-export function Task() {
+interface TaskProps {
+  task: Task;
+}
+
+interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+export function Task({task}: TaskProps) {
   return (
     <li className={styles.task}>
       <div className={styles.radioContainer}>
-        <label htmlFor="1">
-          <input id="1" type="checkbox" />
+        <label htmlFor={task.id}>
+          <input id={task.id} type="checkbox" defaultChecked={task.completed} />
           <div className={styles.customRadio} />
-          <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+          <span>{task.title}</span>
         </label>
       </div>
 

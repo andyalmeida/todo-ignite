@@ -4,6 +4,7 @@ import styles from './Task.module.css';
 
 interface TaskProps {
   task: Task;
+  onToggleTaskCompletion: (id: string) => void;
 }
 
 interface Task {
@@ -12,12 +13,17 @@ interface Task {
   completed: boolean;
 }
 
-export function Task({task}: TaskProps) {
+export function Task({task, onToggleTaskCompletion}: TaskProps) {
   return (
     <li className={styles.task}>
       <div className={styles.radioContainer}>
         <label htmlFor={task.id}>
-          <input id={task.id} type="checkbox" defaultChecked={task.completed} />
+          <input
+            id={task.id}
+            type="checkbox"
+            checked={task.completed}
+            onChange={() => onToggleTaskCompletion(task.id)}
+          />
           <div className={styles.customRadio} />
           <span>{task.title}</span>
         </label>

@@ -30,9 +30,23 @@ export function TaskList({ newTask }: TaskListProps) {
 
     const task = { id: uuidv4(), title: newTask, completed: false };
     setTasks([...tasks, task]);
-
-    localStorage.setItem('tasks', JSON.stringify([...tasks, task]));
+    saveTasks([...tasks, task]);
   },[newTask]);
+
+  function toggleTaskCompletion(taskId: string) {
+    const changedTasks = tasks.map(task => {
+      if(task.id === taskId) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(changedTasks);
+    saveTasks(changedTasks);
+  }
+
+  function saveTasks(tasks: Task[]) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 
   const taskCount = tasks.length;
   const completedTaskCount = tasks.filter(task => task.completed).length;
@@ -62,7 +76,11 @@ export function TaskList({ newTask }: TaskListProps) {
       {!!taskCount && (
       <ul className={styles.taskList}>
         {tasks.map(task => {
-          return <Task key={task.id} task={task} />;
+          return <Task
+            key={task.id}
+            task={task}
+            onToggleTaskCompletion={toggleTaskCompletion}
+          />;
         })}
       </ul>
       )}

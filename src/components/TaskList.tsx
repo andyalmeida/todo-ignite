@@ -1,5 +1,7 @@
 import { Scroll } from "phosphor-react";
 
+import { Task } from "./Task";
+
 import styles from './TaskList.module.css';
 
 export function TaskList() {
@@ -24,9 +26,9 @@ export function TaskList() {
       </div>
 
       <ul className={styles.taskList}>
-        <li>Task 1</li>
-        <li>Task 2</li>
-        <li>Task 3</li>
+        <Task />
+        <Task />
+        <Task />
       </ul>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Scroll } from "phosphor-react";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -6,17 +6,26 @@ import { Task } from "./Task";
 
 import styles from './TaskList.module.css';
 
+interface TaskListProps {
+  newTask: string;
+}
+
 interface Task {
   id: string;
   title: string;
   completed: boolean;
 }
 
-export function TaskList() {
+export function TaskList({ newTask }: TaskListProps) {
 
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: uuidv4(), title: "Learn React", completed: false },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(()=>{
+    if(!newTask) return;
+
+    const task = { id: uuidv4(), title: newTask, completed: false };
+    setTasks([...tasks, task]);
+  },[newTask]);
 
   const taskCount = tasks.length;
   const completedTaskCount = tasks.filter(task => task.completed).length;

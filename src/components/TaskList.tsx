@@ -44,6 +44,12 @@ export function TaskList({ newTask }: TaskListProps) {
     saveTasks(changedTasks);
   }
 
+  function deleteTask(taskId: string) {
+    const changedTasks = tasks.filter(task => task.id !== taskId);
+    setTasks(changedTasks);
+    saveTasks(changedTasks);
+  }
+
   function saveTasks(tasks: Task[]) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
@@ -80,6 +86,7 @@ export function TaskList({ newTask }: TaskListProps) {
             key={task.id}
             task={task}
             onToggleTaskCompletion={toggleTaskCompletion}
+            onDeleteTask={deleteTask}
           />;
         })}
       </ul>

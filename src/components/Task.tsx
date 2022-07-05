@@ -5,6 +5,7 @@ import styles from './Task.module.css';
 interface TaskProps {
   task: Task;
   onToggleTaskCompletion: (id: string) => void;
+  onDeleteTask: (id: string) => void;
 }
 
 interface Task {
@@ -13,7 +14,7 @@ interface Task {
   completed: boolean;
 }
 
-export function Task({task, onToggleTaskCompletion}: TaskProps) {
+export function Task({task, onToggleTaskCompletion, onDeleteTask}: TaskProps) {
   return (
     <li className={styles.task}>
       <div className={styles.radioContainer}>
@@ -29,7 +30,7 @@ export function Task({task, onToggleTaskCompletion}: TaskProps) {
         </label>
       </div>
 
-      <button>
+      <button onClick={() => onDeleteTask(task.id)}>
         <Trash />
       </button>
     </li>
